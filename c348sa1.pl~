@@ -180,10 +180,7 @@ keepAll(Li, [Rank|T], [RankR|Tr]) :-
 /* Produces a new relation that contains only the specified	*/
 /* columns of the original relation							*/
 /****************************************************************/
-projection(HeaderP, relation(Header, Table), R) :-verifRelation(relation(Header,Table)),
-     findIndices(HeaderP,Header,Output),
-     keepAll(Output,Table,Final),
-     R = relation(HeaderP,Final).
+projection(HeaderP, relation(Header, Table), R) :-verifRelation(relation(Header,Table)), findIndices(HeaderP,Header,Output), keepAll(Output,Table,Final), R = relation(HeaderP,Final).
 
 
 
