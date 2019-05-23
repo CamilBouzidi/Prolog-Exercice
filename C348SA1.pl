@@ -262,7 +262,7 @@ correspondance(relation(_,T1), relation(_, T2), Lci) :-
 
 /****************************************************************/
 /* Searches the element at the position "Index"				*/
-/****************************************************************/
+\/****************************************************************/
 search(_, [], []).
 search(1, [X|_], X).
 search(Index, [_|RT], L) :- Y is Index - 1, search(Y, RT, L).
@@ -297,7 +297,7 @@ join1(HeaderJ,Rel1,Rel2,Li2,RelR) :-
 	    projection(HeaderJ,Rel2,RelR2),
 	    correspondance(RelR1,RelR2,Lci),
 	    join2(Rel1,Rel2,Li2,Lci,RelR).
-
+%Li2: Things you want to remove
 
 
 
@@ -309,8 +309,8 @@ join1(HeaderJ,Rel1,Rel2,Li2,RelR) :-
 /* values in the specified columns, taking care to remove	*/
 /* columns which are repeated					*/
 /****************************************************************/
-/*join(HeaderJ, Rel1,relation(ER2,Table2), RelR):-*/
-
+join(HeaderJ, Rel1,relation(ER2,Table2), RelR):-verifRelation(Rel1),verifRelation(relation(ER2,Table2)),
+findIndices(HeaderJ,relation(ER2,Table2),R2), join1(HeaderJ,Rel1,relation(ER2,Table2),R2, RelR).
 
 
 
