@@ -180,10 +180,11 @@ keepAll(Li, [Rank|T], [RankR|Tr]) :-
 /* Produces a new relation that contains only the specified	*/
 /* columns of the original relation							*/
 /****************************************************************/
-projection(HeaderP, relation(Header, Table), R) :-verifRelation(relation(Header,Table)),
-     findIndices(HeaderP,Header,Output),
-     keepAll(Output,Table,Final),
-     R = relation(HeaderP,Final).
+projection(HeaderP, relation(Header, Table), R) :-
+	verifRelation(relation(Header,Table)),
+     findIndices(HeaderP,Header,Li),
+     keepAll(Li,Table,Tr),
+     R = relation(HeaderP,Tr).
 
 
 
@@ -262,7 +263,7 @@ correspondance(relation(_,T1), relation(_, T2), Lci) :-
 
 /****************************************************************/
 /* Searches the element at the position "Index"				*/
-\/****************************************************************/
+/****************************************************************/
 search(_, [], []).
 search(1, [X|_], X).
 search(Index, [_|RT], L) :- Y is Index - 1, search(Y, RT, L).
@@ -309,8 +310,11 @@ join1(HeaderJ,Rel1,Rel2,Li2,RelR) :-
 /* values in the specified columns, taking care to remove	*/
 /* columns which are repeated					*/
 /****************************************************************/
-join(HeaderJ, Rel1,relation(ER2,Table2), RelR):-verifRelation(Rel1),verifRelation(relation(ER2,Table2)),
-findIndices(HeaderJ,relation(ER2,Table2),R2), join1(HeaderJ,Rel1,relation(ER2,Table2),R2, RelR).
+join(HeaderJ, Rel1,relation(ER2,Table2), RelR):-
+	verifRelation(Rel1),
+	verifRelation(relation(ER2,Table2)),
+	findIndices(HeaderJ,relation(ER2,Table2),Li2),
+	join1(HeaderJ,Rel1,relation(ER2,Table2),Li2, RelR),!.
 
 
 
