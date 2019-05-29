@@ -298,8 +298,6 @@ join1(HeaderJ,Rel1,Rel2,Li2,RelR) :-
 	    projection(HeaderJ,Rel2,RelR2),
 	    correspondance(RelR1,RelR2,Lci),
 	    join2(Rel1,Rel2,Li2,Lci,RelR).
-%Li2: Things you want to remove
-
 
 
 
@@ -313,7 +311,7 @@ join1(HeaderJ,Rel1,Rel2,Li2,RelR) :-
 join(HeaderJ, Rel1,relation(ER2,Table2), RelR):-
 	verifRelation(Rel1),
 	verifRelation(relation(ER2,Table2)),
-	findIndices(HeaderJ,relation(ER2,Table2),Li2),
+	findIndices(HeaderJ,ER2,Li2),
 	join1(HeaderJ,Rel1,relation(ER2,Table2),Li2, RelR),!.
 
 
