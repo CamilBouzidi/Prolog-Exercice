@@ -1,78 +1,78 @@
 /************************************************************************/
-/*  Student Names :														*/
-/*  ===============														*/
+/*  Student Names :												*/
+/*  ===============												*/
 /*																		*/
 /*																		*/
+/*														*/
+/*		----------------------------									*/
 /*																		*/
+/*		Sustac Cosmin Gabriel	ID: 40097001															*/
+/*		----------------------------									*/
+/*																		*/
+/*		Camil Bouzidi																*/
+/*		----------------------------									*/
+/*																		*/
+/*		Razvan Ivan																*/
+/*		----------------------------									*/
+/*																		*/
+/*		Wiliam Morin-Laberge																*/
 /*		----------------------------									*/
 /*																		*/
 /*																		*/
-/*		----------------------------									*/
-/*																		*/
-/*																		*/
-/*		----------------------------									*/
-/*																		*/
-/*																		*/
-/*		----------------------------									*/
-/*																		*/
-/*																		*/
-/*		----------------------------									*/
 /*																		*/
 /*																		*/
 /*																		*/
+/*  Assignment	     : #1											*/
 /*																		*/
-/*																		*/
-/*  Assignment	     : #1												*/
-/*																		*/
-/*  Session          : Summer 2019							*/
-/*											*/
-/*  Course - Section : COMP348 - AA							*/
-/*											*/
-/*  Language         : Prolog								*/
-/*											*/
-/*  File name	     : C348SA1.pl								*/
-/*										*/
-/*  Professor        : Dr. Mohamed Taleb						*/
-/*										*/
-/*										*/
-/*										*/
-/*										*/
-/*            Concordia University - Montreal					*/
+/*  Session          : Summer 2019										*/
+/*														*/
+/*  Course - Section : COMP348 - AA										*/
+/*														*/
+/*  Language         : Prolog											*/
+/*														*/
+/*  File name	     : C348SA1.pl										*/
+/*														*/
+/*  Professor        : Dr. Mohamed Taleb									*/
+/*														*/
+/*														*/
+/*														*/
+/*														*/
+/*            Concordia University - Montreal									*/
 /************************************************************************/
 
 /****************************************************************/
 /* This application deals with a relational model in Prolog.	*/
 /* The relational data model is based on a tabular		*/
-/* representation of data.							*/
+/* representation of data.					*/
 /* It allows you to establish two operations on relations :	*/
-/*     - A projection producing a new relationship			*/
+/*     - A projection producing a new relationship		*/
 /*       Containing the specified columns of the original	*/
 /*       relation.						*/
 /*     - A join producing a new relationship by concatenating	*/
 /*       the end-to-end rows of the relation1 and relation2	*/
 /*       that have identical values in the specified columns	*/
-/*       by deleting the columns that repeat.				*/
+/*       by deleting the columns that repeat.			*/
 /*								*/
 /****************************************************************/
 
 
 /****************************************************************/
-/*																*/
-/* Tests the equality of the type of two elements			*/
-/*													*/
+/*								*/
+/* Tests the equality of the type of two elements		*/
+/*								*/
 /****************************************************************/
 sameType(X, Y) :- atom(X), atom(Y).
 sameType(X, Y) :- integer(X), integer(Y).
 sameType(X, Y) :- float(X), float(Y).
 
 /****************************************************************/
-/* Tests whether an element is in a list				*/
+/* Tests whether an element is in a list			*/
 /****************************************************************/
 member(X, [X|_]).
 member(X, [_|Rest]) :- member(X, Rest).
 
 /****************************************************************/
-/* Tests whether a list contains no repetitions				*/
+/* Tests whether a list contains no repetitions			*/
 /****************************************************************/
 noRepetition([]).
 noRepetition([Elem|Rest]) :-
@@ -80,13 +80,13 @@ noRepetition([Elem|Rest]) :-
      noRepetition(Rest).
 
 /****************************************************************/
-/* Counts the number of elements in a list				*/
+/* Counts the number of elements in a list			*/
 /****************************************************************/
 nbElements([], 0).
 nbElements([_|Rest], N) :- nbElements(Rest, M), N is M + 1.
 
 /****************************************************************/
-/* Tests whether two lists are the same length				*/
+/* Tests whether two lists are the same length			*/
 /****************************************************************/
 sameLength(List1, List2) :-
      nbElements(List1, N1),
@@ -123,7 +123,7 @@ verifRelation(relation(Header, [Row|Rest])) :-
 
 /****************************************************************/
 /* Finds the index of an element in a list when it exists	*/
-/*  in the list								*/
+/*  in the list							*/
 /****************************************************************/
 index(Elem, [Elem|_], 1).
 index(Elem, [_|Rest], Pos) :-
@@ -132,13 +132,13 @@ index(Elem, [_|Rest], Pos) :-
 
 /****************************************************************/
 /* Finds the index of an element in a list, knowing that	*/
-/* it can not exist in the list						*/
+/* it can not exist in the list					*/
 /****************************************************************/
 position(Elem, List, 0) :- \+ member(Elem, List), !.
 position(Elem, List, Pos) :- index(Elem, List, Pos).
 
 /****************************************************************/
-/* Finds the indices of projection headers				*/
+/* Finds the indices of projection headers			*/
 /****************************************************************/
 findIndices([], _, []).
 findIndices([Elem|RestE], List, [Index|RestI]) :-
@@ -148,7 +148,7 @@ findIndices([Elem|RestE], List, [Index|RestI]) :-
 
 
 /****************************************************************/
-/*Keeps the element index by the variable Index					*/
+/*Keeps the element index by the variable Index			*/
 /****************************************************************/
 keepElt(Index, Index,[X|_], X).
 keepElt(Index, Counter, [_|L], X) :-
@@ -159,7 +159,7 @@ keepElt(Index, Counter, [_|L], X) :-
 
 /****************************************************************/
 /* Keeps the elements indices by the list of indices		*/
-/* of a given row									*/
+/* of a given row						*/
 /****************************************************************/
 keepRow([],_,[]).
 keepRow([I|Li], Rank, [X|Lr]) :-
@@ -169,7 +169,7 @@ keepRow([I|Li], Rank, [X|Lr]) :-
 
 /****************************************************************/
 /*  keeps all elements indices of the list indices (Li)		*/
-/*  of the table T								*/
+/*  of the table T						*/
 /****************************************************************/
 keepAll(_,[],[]).
 keepAll(Li, [Rank|T], [RankR|Tr]) :-
@@ -178,7 +178,7 @@ keepAll(Li, [Rank|T], [RankR|Tr]) :-
 
 /****************************************************************/
 /* Produces a new relation that contains only the specified	*/
-/* columns of the original relation							*/
+/* columns of the original relation				*/
 /****************************************************************/
 projection(HeaderP, relation(Header, Table), R) :-
 	verifRelation(relation(Header,Table)),
@@ -187,14 +187,8 @@ projection(HeaderP, relation(Header, Table), R) :-
      R = relation(HeaderP,Tr).
 
 
-
-
-
-
-
-
 /****************************************************************/
-/* Concatenates two lists						*/
+/* Concatenates two lists					*/
 /****************************************************************/
 conc([], L, L).
 conc([X|L1], L2, [X|L]) :- conc(L1, L2, L).
@@ -212,7 +206,7 @@ remove(Index, Counter, [X|L], [X|Lr]) :-
 
 /****************************************************************/
 /* Removes elements indices by the list of indices of		*/
-/* a given row.									*/
+/* a given row.							*/
 /****************************************************************/
 removeRow([], L, L).
 removeRow([Index|Li], Row, RowR) :-
@@ -222,7 +216,7 @@ removeRow([Index|Li], Row, RowR) :-
 
 /****************************************************************/
 /* Removes the elements indices by the list indices (Li)	*/
-/* of all the rows of a table								*/
+/* of all the rows of a table					*/
 /****************************************************************/
 removeTable(_, [], []).
 removeTable(Li, [Row|RestT], [RowR|RestTr]) :-
@@ -232,7 +226,7 @@ removeTable(Li, [Row|RestT], [RowR|RestTr]) :-
 
 /****************************************************************/
 /* Removes elements indices from the list of indices (Li)	*/
-/* of the relation (relation (E, T))						*/
+/* of the relation (relation (E, T))				*/
 /****************************************************************/
 removeT(_,[],[]).
 removeT(Li, relation(E, T), relation(Er, Tr)) :-
@@ -262,7 +256,7 @@ correspondance(relation(_,T1), relation(_, T2), Lci) :-
 
 
 /****************************************************************/
-/* Searches the element at the position "Index"				*/
+/* Searches the element at the position "Index"			*/
 /****************************************************************/
 search(_, [], []).
 search(1, [X|_], X).
@@ -270,7 +264,7 @@ search(Index, [_|RT], L) :- Y is Index - 1, search(Y, RT, L).
 
 
 /****************************************************************/
-/* Constructs the final table						*/
+/* Constructs the final table					*/
 /****************************************************************/
 construct(_,_,[],[]).
 construct(T1,T2,[[X,Y]|RestCi],[L|Res]) :-
@@ -281,7 +275,7 @@ construct(T1,T2,[[X,Y]|RestCi],[L|Res]) :-
 
 
 /****************************************************************/
-/* Joins two relations							*/
+/* Joins two relations						*/
 /****************************************************************/
 join2(relation(E1,T1),relation(E2,T2),Li2,Lci,relation(E,T)) :-
 	    removeT(Li2,relation(E2,T2),relation(ER2, TR2)),
@@ -315,16 +309,8 @@ join(HeaderJ, Rel1,relation(ER2,Table2), RelR):-
 	join1(HeaderJ,Rel1,relation(ER2,Table2),Li2, RelR),!.
 
 
-
-
-
-
-
-
-
-
 /****************************************************************/
-/* Example of basic facts									*/
+/* Example of basic facts					*/
 /****************************************************************/
 
 /******************* Relation Registration **********************/
@@ -344,11 +330,6 @@ relation2(relation(['Course', 'Prof', 'Local'],
 
 
 /**************************** End of tests ***********************/
-/*Need to implement the following relations:
-   1) projection(list of columns to remember, relation). New relation,
-   contains only specified COLUMNS of original relation.
-   2) join(list of columns to be matched, rel1, rel2). New relation, welding ROWS from relation1 and relation2 that have identical values of fields in specified colums by deleting columns that are repeated.*/
-
 
 
 
